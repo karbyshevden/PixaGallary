@@ -11,14 +11,19 @@ import android.widget.TextView;
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
 import com.karbyshev.pixagallary.R;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.Arrays;
+>>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
 import java.util.List;
 
 import static com.karbyshev.pixagallary.view.MainActivity.CATEGORY;
 import static com.karbyshev.pixagallary.view.MainActivity.PACKAGE_NAME;
 
-public class MySampleFabFragment extends AAH_FabulousFragment implements View.OnClickListener{
+public class MySampleFabFragment extends AAH_FabulousFragment {
 
+<<<<<<< HEAD
     private List<TextView> textViewList = new ArrayList<>();
     private static final int[] TEXTVIEW_IDS = {
             R.id.my_category_fashion,
@@ -33,15 +38,61 @@ public class MySampleFabFragment extends AAH_FabulousFragment implements View.On
 //    private TextView fashion, nature, backgrounds, science, education, people, feelings, religion,
 //            health, places, animals, industry, food, computer, sports, transportation, travel,
 //            buildings, business, music;
+=======
+    private List<Integer> ids = Arrays.asList(
+            R.id.my_category_fashion,
+            R.id.my_category_nature,
+            R.id.my_category_backgrounds,
+            R.id.my_category_science,
+            R.id.my_category_education,
+            R.id.my_category_people,
+            R.id.my_category_feelings,
+            R.id.my_category_religion,
+            R.id.my_category_health,
+            R.id.my_category_places,
+            R.id.my_category_animals,
+            R.id.my_category_industry,
+            R.id.my_category_food,
+            R.id.my_category_computer,
+            R.id.my_category_sports,
+            R.id.my_category_transportation,
+            R.id.my_category_travel,
+            R.id.my_category_buildings,
+            R.id.my_category_business,
+            R.id.my_category_music
+    );
+
+    private List<String> labels = Arrays.asList(
+           "fashion",
+           "nature",
+           "backgrounds",
+           "science",
+           "education",
+           "people",
+           "feelings",
+           "religion",
+           "health",
+           "places",
+           "animals",
+           "industry",
+           "food",
+           "computer",
+           "sports",
+           "transportation",
+           "travel",
+           "buildings",
+           "business",
+           "music"
+    );
+>>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
 
     public static MySampleFabFragment newInstance() {
-        MySampleFabFragment f = new MySampleFabFragment();
-        return f;
+        return new MySampleFabFragment();
     }
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
-        View contentView = View.inflate(getContext(), R.layout.filter_sample_view, null);
+        final View contentView = View.inflate(getContext(), R.layout.filter_sample_view, null);
         RelativeLayout rl_content = (RelativeLayout) contentView.findViewById(R.id.rl_content);
         LinearLayout ll_buttons = (LinearLayout) contentView.findViewById(R.id.ll_buttons);
         contentView.findViewById(R.id.my_ok_button).setOnClickListener(new View.OnClickListener() {
@@ -51,6 +102,7 @@ public class MySampleFabFragment extends AAH_FabulousFragment implements View.On
             }
         });
 
+<<<<<<< HEAD
         for (int id : TEXTVIEW_IDS) {
             TextView textView = (TextView) contentView.findViewById(id);
             textView.setOnClickListener(this);
@@ -105,6 +157,8 @@ public class MySampleFabFragment extends AAH_FabulousFragment implements View.On
 //        business.setOnClickListener(this);
 //        music.setOnClickListener(this);
 
+=======
+>>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
         //params to set
         setAnimationDuration(600); //optional; default 500ms
         setPeekHeight(300); // optional; default 400dp
@@ -114,8 +168,8 @@ public class MySampleFabFragment extends AAH_FabulousFragment implements View.On
         setViewMain(rl_content); //necessary; main bottomsheet view
         setMainContentView(contentView); // necessary; call at end before super
         super.setupDialog(dialog, style); //call super at last
-    }
 
+<<<<<<< HEAD
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -200,6 +254,24 @@ public class MySampleFabFragment extends AAH_FabulousFragment implements View.On
 //                CATEGORY = "music";
 //                music.setTextColor(Color.RED);
 //                break;
+=======
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (labels.contains(CATEGORY)) {
+                    ((TextView)contentView.findViewById(ids.get(labels.indexOf(CATEGORY)))).setTextColor(Color.WHITE);
+                }
+                int index = ids.indexOf(view.getId());
+                if (index > 0) {
+                    ((TextView)contentView.findViewById(ids.get(index))).setTextColor(Color.RED);
+                    CATEGORY = labels.get(index);
+                }
+            }
+        };
+
+        for(Integer id: ids) {
+            contentView.findViewById(id).setOnClickListener(onClickListener);
+>>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
         }
     }
 }
