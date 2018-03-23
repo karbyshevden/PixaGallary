@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
     public static int SPAN_COUNT = 1;
     public static String CATEGORY = "all";
     public static String ORIENTATION = "all";
+    public static String PACKAGE_NAME;
 
     private RecyclerView mRecyclerView;
     private HashMap<String,String> map;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
             }
         });
 
+        PACKAGE_NAME = getPackageName();
+
         mRecyclerView = (RecyclerView)findViewById(R.id.my_recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mGridLayoutManager = new GridLayoutManager(this, SPAN_COUNT);
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
         map.put("per_page", "100");
         map.put("page", "1");
         showData();
+
     }
 
     @Override

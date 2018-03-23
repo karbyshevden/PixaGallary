@@ -2,6 +2,7 @@ package com.karbyshev.pixagallary.view;
 
 import android.app.Dialog;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -10,14 +11,28 @@ import android.widget.TextView;
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
 import com.karbyshev.pixagallary.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.karbyshev.pixagallary.view.MainActivity.CATEGORY;
+import static com.karbyshev.pixagallary.view.MainActivity.PACKAGE_NAME;
 
 public class MySampleFabFragment extends AAH_FabulousFragment implements View.OnClickListener{
 
-    private TextView fashion, nature, backgrounds, science, education, people, feelings, religion,
-            health, places, animals, industry, food, computer, sports, transportation, travel,
-            buildings, business, music;
+    private List<TextView> textViewList = new ArrayList<>();
+    private static final int[] TEXTVIEW_IDS = {
+            R.id.my_category_fashion,
+            R.id.my_category_nature,
+            R.id.my_category_backgrounds
+    };
 
+//    private int textViewCount = 3;
+//    private TextView[] textViewArray = new TextView[textViewCount];
+//    private String[] id = new String[]{"my_category_fashion", "my_category_nature", "my_category_backgrounds"};
+
+//    private TextView fashion, nature, backgrounds, science, education, people, feelings, religion,
+//            health, places, animals, industry, food, computer, sports, transportation, travel,
+//            buildings, business, music;
 
     public static MySampleFabFragment newInstance() {
         MySampleFabFragment f = new MySampleFabFragment();
@@ -36,48 +51,59 @@ public class MySampleFabFragment extends AAH_FabulousFragment implements View.On
             }
         });
 
+        for (int id : TEXTVIEW_IDS) {
+            TextView textView = (TextView) contentView.findViewById(id);
+            textView.setOnClickListener(this);
+            textViewList.add(textView);
+        }
 
-        fashion = (TextView)contentView.findViewById(R.id.my_category_fashion);
-        nature = (TextView)contentView.findViewById(R.id.my_category_nature);
-        backgrounds = (TextView)contentView.findViewById(R.id.my_category_backgrounds);
-        science = (TextView)contentView.findViewById(R.id.my_category_science);
-        education = (TextView)contentView.findViewById(R.id.my_category_education);
-        people = (TextView)contentView.findViewById(R.id.my_category_people);
-        feelings = (TextView)contentView.findViewById(R.id.my_category_feelings);
-        religion = (TextView)contentView.findViewById(R.id.my_category_religion);
-        health = (TextView)contentView.findViewById(R.id.my_category_health);
-        places = (TextView)contentView.findViewById(R.id.my_category_places);
-        animals = (TextView)contentView.findViewById(R.id.my_category_animals);
-        industry = (TextView)contentView.findViewById(R.id.my_category_industry);
-        food = (TextView)contentView.findViewById(R.id.my_category_food);
-        computer = (TextView)contentView.findViewById(R.id.my_category_computer);
-        sports = (TextView)contentView.findViewById(R.id.my_category_sports);
-        transportation = (TextView)contentView.findViewById(R.id.my_category_transportation);
-        travel = (TextView)contentView.findViewById(R.id.my_category_travel);
-        buildings = (TextView)contentView.findViewById(R.id.my_category_buildings);
-        business = (TextView)contentView.findViewById(R.id.my_category_business);
-        music = (TextView)contentView.findViewById(R.id.my_category_music);
+//        for (int i = 0; i < id.length; i++) {
+//            int temp = getResources().getIdentifier(id[i], "id", PACKAGE_NAME);
+//            textViewArray[i] = (TextView)contentView.findViewById(temp);
+//            textViewArray[i].setOnClickListener(this);
+//        }
 
-        fashion.setOnClickListener(this);
-        nature.setOnClickListener(this);
-        backgrounds.setOnClickListener(this);
-        science.setOnClickListener(this);
-        education.setOnClickListener(this);
-        people.setOnClickListener(this);
-        feelings.setOnClickListener(this);
-        religion.setOnClickListener(this);
-        health.setOnClickListener(this);
-        places.setOnClickListener(this);
-        animals.setOnClickListener(this);
-        industry.setOnClickListener(this);
-        food.setOnClickListener(this);
-        computer.setOnClickListener(this);
-        sports.setOnClickListener(this);
-        transportation.setOnClickListener(this);
-        travel.setOnClickListener(this);
-        buildings.setOnClickListener(this);
-        business.setOnClickListener(this);
-        music.setOnClickListener(this);
+//        fashion = (TextView)contentView.findViewById(R.id.my_category_fashion);
+//        nature = (TextView)contentView.findViewById(R.id.my_category_nature);
+//        backgrounds = (TextView)contentView.findViewById(R.id.my_category_backgrounds);
+//        science = (TextView)contentView.findViewById(R.id.my_category_science);
+//        education = (TextView)contentView.findViewById(R.id.my_category_education);
+//        people = (TextView)contentView.findViewById(R.id.my_category_people);
+//        feelings = (TextView)contentView.findViewById(R.id.my_category_feelings);
+//        religion = (TextView)contentView.findViewById(R.id.my_category_religion);
+//        health = (TextView)contentView.findViewById(R.id.my_category_health);
+//        places = (TextView)contentView.findViewById(R.id.my_category_places);
+//        animals = (TextView)contentView.findViewById(R.id.my_category_animals);
+//        industry = (TextView)contentView.findViewById(R.id.my_category_industry);
+//        food = (TextView)contentView.findViewById(R.id.my_category_food);
+//        computer = (TextView)contentView.findViewById(R.id.my_category_computer);
+//        sports = (TextView)contentView.findViewById(R.id.my_category_sports);
+//        transportation = (TextView)contentView.findViewById(R.id.my_category_transportation);
+//        travel = (TextView)contentView.findViewById(R.id.my_category_travel);
+//        buildings = (TextView)contentView.findViewById(R.id.my_category_buildings);
+//        business = (TextView)contentView.findViewById(R.id.my_category_business);
+//        music = (TextView)contentView.findViewById(R.id.my_category_music);
+//
+//        fashion.setOnClickListener(this);
+//        nature.setOnClickListener(this);
+//        backgrounds.setOnClickListener(this);
+//        science.setOnClickListener(this);
+//        education.setOnClickListener(this);
+//        people.setOnClickListener(this);
+//        feelings.setOnClickListener(this);
+//        religion.setOnClickListener(this);
+//        health.setOnClickListener(this);
+//        places.setOnClickListener(this);
+//        animals.setOnClickListener(this);
+//        industry.setOnClickListener(this);
+//        food.setOnClickListener(this);
+//        computer.setOnClickListener(this);
+//        sports.setOnClickListener(this);
+//        transportation.setOnClickListener(this);
+//        travel.setOnClickListener(this);
+//        buildings.setOnClickListener(this);
+//        business.setOnClickListener(this);
+//        music.setOnClickListener(this);
 
         //params to set
         setAnimationDuration(600); //optional; default 500ms
@@ -95,84 +121,85 @@ public class MySampleFabFragment extends AAH_FabulousFragment implements View.On
         switch (v.getId()){
             case R.id.my_category_fashion:
                 CATEGORY = "fashion";
-                fashion.setTextColor(Color.RED);
+                textViewList.get(0).setTextColor(Color.RED);
+//                fashion.setTextColor(Color.RED);
                 break;
             case R.id.my_category_nature:
                 CATEGORY = "nature";
-                nature.setTextColor(Color.RED);
+//                nature.setTextColor(Color.RED);
                 break;
             case R.id.my_category_backgrounds:
                 CATEGORY = "backgrounds";
-                backgrounds.setTextColor(Color.RED);
+//                backgrounds.setTextColor(Color.RED);
                 break;
-            case R.id.my_category_science:
-                CATEGORY = "science";
-                science.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_education:
-                CATEGORY = "education";
-                education.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_people:
-                CATEGORY = "people";
-                people.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_feelings:
-                CATEGORY = "feelings";
-                feelings.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_religion:
-                CATEGORY = "religion";
-                religion.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_health:
-                CATEGORY = "health";
-                health.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_places:
-                CATEGORY = "places";
-                places.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_animals:
-                CATEGORY = "animals";
-                animals.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_industry:
-                CATEGORY = "industry";
-                industry.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_food:
-                CATEGORY = "food";
-                food.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_computer:
-                CATEGORY = "computer";
-                computer.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_sports:
-                CATEGORY = "sports";
-                sports.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_transportation:
-                CATEGORY = "transportation";
-                transportation.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_travel:
-                CATEGORY = "travel";
-                travel.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_buildings:
-                CATEGORY = "buildings";
-                buildings.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_business:
-                CATEGORY = "business";
-                business.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_music:
-                CATEGORY = "music";
-                music.setTextColor(Color.RED);
-                break;
+//            case R.id.my_category_science:
+//                CATEGORY = "science";
+//                science.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_education:
+//                CATEGORY = "education";
+//                education.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_people:
+//                CATEGORY = "people";
+//                people.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_feelings:
+//                CATEGORY = "feelings";
+//                feelings.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_religion:
+//                CATEGORY = "religion";
+//                religion.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_health:
+//                CATEGORY = "health";
+//                health.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_places:
+//                CATEGORY = "places";
+//                places.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_animals:
+//                CATEGORY = "animals";
+//                animals.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_industry:
+//                CATEGORY = "industry";
+//                industry.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_food:
+//                CATEGORY = "food";
+//                food.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_computer:
+//                CATEGORY = "computer";
+//                computer.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_sports:
+//                CATEGORY = "sports";
+//                sports.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_transportation:
+//                CATEGORY = "transportation";
+//                transportation.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_travel:
+//                CATEGORY = "travel";
+//                travel.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_buildings:
+//                CATEGORY = "buildings";
+//                buildings.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_business:
+//                CATEGORY = "business";
+//                business.setTextColor(Color.RED);
+//                break;
+//            case R.id.my_category_music:
+//                CATEGORY = "music";
+//                music.setTextColor(Color.RED);
+//                break;
         }
     }
 }
