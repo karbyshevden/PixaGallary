@@ -28,10 +28,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements AAH_FabulousFragment.Callbacks{
+    public static final String APP_PREFERENCES_POSITION_LIST = "positionList";
+    public static final String APP_PREFERENCES_POSITION_ORIENTATION = "positionOrientation";
+    public static final String APP_PREFERENCES_POSITION_COLOR = "positionColor";
     public static int SPAN_COUNT = 1;
     public static String CATEGORY = "all";
     public static String ORIENTATION = "all";
-    public static String PACKAGE_NAME;
+
 
     private RecyclerView mRecyclerView;
     private HashMap<String,String> map;
@@ -55,16 +58,6 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
             }
         });
 
-        PACKAGE_NAME = getPackageName();
-
-        mRecyclerView = (RecyclerView)findViewById(R.id.my_recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mGridLayoutManager = new GridLayoutManager(this, SPAN_COUNT);
-        mRecyclerView.setLayoutManager(mGridLayoutManager);
-
-        myAdapter = new MyAdapter(MainActivity.this);
-        mRecyclerView.setAdapter(myAdapter);
-
         map = new HashMap<>();
         map.put("key", "8334968-4779a336d920b0785293ef347");
         map.put("image_type", "photo");
@@ -73,17 +66,25 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
         map.put("category", CATEGORY);
         map.put("per_page", "100");
         map.put("page", "1");
-        showData();
 
+        showData();
     }
 
     @Override
     public void onResult(Object result) {
+        map.put("orientation", ORIENTATION);
         map.put("category", CATEGORY);
         showData();
     }
 
     private void showData(){
+        mRecyclerView = (RecyclerView)findViewById(R.id.my_recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mGridLayoutManager = new GridLayoutManager(this, SPAN_COUNT);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
+        myAdapter = new MyAdapter(MainActivity.this);
+        mRecyclerView.setAdapter(myAdapter);
+
         AppController.getApi().data(map).enqueue(new Callback<PostModel>() {
             private List<Hit> postsList = new ArrayList<>();
             @Override

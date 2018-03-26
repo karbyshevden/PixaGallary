@@ -1,8 +1,9 @@
 package com.karbyshev.pixagallary.view;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -11,34 +12,23 @@ import android.widget.TextView;
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
 import com.karbyshev.pixagallary.R;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
 import java.util.Arrays;
->>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
 import java.util.List;
 
+import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
+import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
+
+import static com.karbyshev.pixagallary.view.MainActivity.APP_PREFERENCES_POSITION_COLOR;
+import static com.karbyshev.pixagallary.view.MainActivity.APP_PREFERENCES_POSITION_LIST;
+import static com.karbyshev.pixagallary.view.MainActivity.APP_PREFERENCES_POSITION_ORIENTATION;
 import static com.karbyshev.pixagallary.view.MainActivity.CATEGORY;
-import static com.karbyshev.pixagallary.view.MainActivity.PACKAGE_NAME;
+import static com.karbyshev.pixagallary.view.MainActivity.ORIENTATION;
+import static com.karbyshev.pixagallary.view.MainActivity.SPAN_COUNT;
 
 public class MySampleFabFragment extends AAH_FabulousFragment {
+    private ToggleSwitch mListToggle, mLandscapeToggle;
+    private SharedPreferences sharedPreferences;
 
-<<<<<<< HEAD
-    private List<TextView> textViewList = new ArrayList<>();
-    private static final int[] TEXTVIEW_IDS = {
-            R.id.my_category_fashion,
-            R.id.my_category_nature,
-            R.id.my_category_backgrounds
-    };
-
-//    private int textViewCount = 3;
-//    private TextView[] textViewArray = new TextView[textViewCount];
-//    private String[] id = new String[]{"my_category_fashion", "my_category_nature", "my_category_backgrounds"};
-
-//    private TextView fashion, nature, backgrounds, science, education, people, feelings, religion,
-//            health, places, animals, industry, food, computer, sports, transportation, travel,
-//            buildings, business, music;
-=======
     private List<Integer> ids = Arrays.asList(
             R.id.my_category_fashion,
             R.id.my_category_nature,
@@ -84,11 +74,11 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
            "business",
            "music"
     );
->>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
 
     public static MySampleFabFragment newInstance() {
         return new MySampleFabFragment();
     }
+
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
@@ -102,66 +92,56 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
             }
         });
 
-<<<<<<< HEAD
-        for (int id : TEXTVIEW_IDS) {
-            TextView textView = (TextView) contentView.findViewById(id);
-            textView.setOnClickListener(this);
-            textViewList.add(textView);
-        }
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
 
-//        for (int i = 0; i < id.length; i++) {
-//            int temp = getResources().getIdentifier(id[i], "id", PACKAGE_NAME);
-//            textViewArray[i] = (TextView)contentView.findViewById(temp);
-//            textViewArray[i].setOnClickListener(this);
-//        }
+        mListToggle = (ToggleSwitch) contentView.findViewById(R.id.my_list_toggle);
+        mLandscapeToggle = (ToggleSwitch)contentView.findViewById(R.id.my_lanscape_toggle);
 
-//        fashion = (TextView)contentView.findViewById(R.id.my_category_fashion);
-//        nature = (TextView)contentView.findViewById(R.id.my_category_nature);
-//        backgrounds = (TextView)contentView.findViewById(R.id.my_category_backgrounds);
-//        science = (TextView)contentView.findViewById(R.id.my_category_science);
-//        education = (TextView)contentView.findViewById(R.id.my_category_education);
-//        people = (TextView)contentView.findViewById(R.id.my_category_people);
-//        feelings = (TextView)contentView.findViewById(R.id.my_category_feelings);
-//        religion = (TextView)contentView.findViewById(R.id.my_category_religion);
-//        health = (TextView)contentView.findViewById(R.id.my_category_health);
-//        places = (TextView)contentView.findViewById(R.id.my_category_places);
-//        animals = (TextView)contentView.findViewById(R.id.my_category_animals);
-//        industry = (TextView)contentView.findViewById(R.id.my_category_industry);
-//        food = (TextView)contentView.findViewById(R.id.my_category_food);
-//        computer = (TextView)contentView.findViewById(R.id.my_category_computer);
-//        sports = (TextView)contentView.findViewById(R.id.my_category_sports);
-//        transportation = (TextView)contentView.findViewById(R.id.my_category_transportation);
-//        travel = (TextView)contentView.findViewById(R.id.my_category_travel);
-//        buildings = (TextView)contentView.findViewById(R.id.my_category_buildings);
-//        business = (TextView)contentView.findViewById(R.id.my_category_business);
-//        music = (TextView)contentView.findViewById(R.id.my_category_music);
-//
-//        fashion.setOnClickListener(this);
-//        nature.setOnClickListener(this);
-//        backgrounds.setOnClickListener(this);
-//        science.setOnClickListener(this);
-//        education.setOnClickListener(this);
-//        people.setOnClickListener(this);
-//        feelings.setOnClickListener(this);
-//        religion.setOnClickListener(this);
-//        health.setOnClickListener(this);
-//        places.setOnClickListener(this);
-//        animals.setOnClickListener(this);
-//        industry.setOnClickListener(this);
-//        food.setOnClickListener(this);
-//        computer.setOnClickListener(this);
-//        sports.setOnClickListener(this);
-//        transportation.setOnClickListener(this);
-//        travel.setOnClickListener(this);
-//        buildings.setOnClickListener(this);
-//        business.setOnClickListener(this);
-//        music.setOnClickListener(this);
 
-=======
->>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
+        mListToggle.setCheckedTogglePosition(sharedPreferences.getInt(APP_PREFERENCES_POSITION_LIST, 0));
+        mListToggle.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
+            @Override
+            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
+                position = mListToggle.getCheckedTogglePosition();
+                if (position == 0){
+                    SPAN_COUNT = 1;
+                    editor.putInt(APP_PREFERENCES_POSITION_LIST, position);
+                    editor.commit();
+                } else if (position == 1){
+                    SPAN_COUNT = 2;
+                    editor.putInt(APP_PREFERENCES_POSITION_LIST, position);
+                    editor.commit();
+                }
+            }
+        });
+
+        mLandscapeToggle.setCheckedTogglePosition(sharedPreferences.getInt(APP_PREFERENCES_POSITION_ORIENTATION, 1));
+        mLandscapeToggle.setOnToggleSwitchChangeListener(new ToggleSwitch.OnToggleSwitchChangeListener() {
+            @Override
+            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
+                position = mLandscapeToggle.getCheckedTogglePosition();
+
+                if (position == 0){
+                    ORIENTATION = "vertical";
+                    editor.putInt(APP_PREFERENCES_POSITION_ORIENTATION, position);
+                    editor.commit();
+                } else if (position == 1){
+                    ORIENTATION = "all";
+                    editor.putInt(APP_PREFERENCES_POSITION_ORIENTATION, position);
+                    editor.commit();
+                } else if (position == 2){
+                    ORIENTATION = "horizontal";
+                    editor.putInt(APP_PREFERENCES_POSITION_ORIENTATION, position);
+                    editor.commit();
+                }
+            }
+        });
+
+
         //params to set
-        setAnimationDuration(600); //optional; default 500ms
-        setPeekHeight(300); // optional; default 400dp
+        setAnimationDuration(200); //optional; default 500ms
+        setPeekHeight(500); // optional; default 400dp
         setCallbacks((Callbacks) getActivity()); //optional; to get back result
         setViewgroupStatic(ll_buttons); // optional; layout to stick at bottom on slide
 //        setViewPager(vp_types); //optional; if you use viewpager that has scrollview
@@ -169,92 +149,7 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
         setMainContentView(contentView); // necessary; call at end before super
         super.setupDialog(dialog, style); //call super at last
 
-<<<<<<< HEAD
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.my_category_fashion:
-                CATEGORY = "fashion";
-                textViewList.get(0).setTextColor(Color.RED);
-//                fashion.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_nature:
-                CATEGORY = "nature";
-//                nature.setTextColor(Color.RED);
-                break;
-            case R.id.my_category_backgrounds:
-                CATEGORY = "backgrounds";
-//                backgrounds.setTextColor(Color.RED);
-                break;
-//            case R.id.my_category_science:
-//                CATEGORY = "science";
-//                science.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_education:
-//                CATEGORY = "education";
-//                education.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_people:
-//                CATEGORY = "people";
-//                people.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_feelings:
-//                CATEGORY = "feelings";
-//                feelings.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_religion:
-//                CATEGORY = "religion";
-//                religion.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_health:
-//                CATEGORY = "health";
-//                health.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_places:
-//                CATEGORY = "places";
-//                places.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_animals:
-//                CATEGORY = "animals";
-//                animals.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_industry:
-//                CATEGORY = "industry";
-//                industry.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_food:
-//                CATEGORY = "food";
-//                food.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_computer:
-//                CATEGORY = "computer";
-//                computer.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_sports:
-//                CATEGORY = "sports";
-//                sports.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_transportation:
-//                CATEGORY = "transportation";
-//                transportation.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_travel:
-//                CATEGORY = "travel";
-//                travel.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_buildings:
-//                CATEGORY = "buildings";
-//                buildings.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_business:
-//                CATEGORY = "business";
-//                business.setTextColor(Color.RED);
-//                break;
-//            case R.id.my_category_music:
-//                CATEGORY = "music";
-//                music.setTextColor(Color.RED);
-//                break;
-=======
+
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -262,7 +157,7 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
                     ((TextView)contentView.findViewById(ids.get(labels.indexOf(CATEGORY)))).setTextColor(Color.WHITE);
                 }
                 int index = ids.indexOf(view.getId());
-                if (index > 0) {
+                if (index >= 0) {
                     ((TextView)contentView.findViewById(ids.get(index))).setTextColor(Color.RED);
                     CATEGORY = labels.get(index);
                 }
@@ -271,7 +166,6 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
 
         for(Integer id: ids) {
             contentView.findViewById(id).setOnClickListener(onClickListener);
->>>>>>> 8c00ec62ed109b1db81fcaba2cb300a9d934aa15
         }
     }
 }

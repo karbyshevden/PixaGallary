@@ -17,12 +17,42 @@
         tools:visibility="visible">
 
         <LinearLayout
+            android:id="@+id/toogle_linearLayout"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:id="@+id/my_list_toggle"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:textToggleLeft="List"
+                app:textToggleRight="Grid"
+                app:toggleWidth="100dp"/>
+
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:id="@+id/my_lanscape_toggle"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:textToggleCenter="All"
+                app:textToggleLeft="Portrait"
+                app:textToggleRight="Landscape"
+                app:toggleWidth="100dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons_linearLayput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_below="@id/toogle_linearLayout">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
