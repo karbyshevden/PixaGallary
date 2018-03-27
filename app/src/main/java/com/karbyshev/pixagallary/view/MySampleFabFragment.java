@@ -1,7 +1,11 @@
 package com.karbyshev.pixagallary.view;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -9,6 +13,7 @@ import android.widget.TextView;
 
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
 import com.karbyshev.pixagallary.R;
+import com.karbyshev.pixagallary.util.Constants;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +21,8 @@ import java.util.List;
 import static com.karbyshev.pixagallary.view.MainActivity.CATEGORY;
 
 public class MySampleFabFragment extends AAH_FabulousFragment {
+
+    private static final String ARG_CATEGORY_SELECTED = "MySampleFabFragment.ARG_CATEGORY_SELECTED";
 
     private List<Integer> ids = Arrays.asList(
             R.id.my_category_fashion,
@@ -63,8 +70,12 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
            "music"
     );
 
-    public static MySampleFabFragment newInstance() {
-        return new MySampleFabFragment();
+    public static MySampleFabFragment newInstance(String selectedCategory) {
+        Bundle args = new Bundle();
+        args.putString(ARG_CATEGORY_SELECTED, selectedCategory);
+        MySampleFabFragment fragment = new MySampleFabFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -96,7 +107,7 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
                     ((TextView)contentView.findViewById(ids.get(labels.indexOf(CATEGORY)))).setTextColor(Color.WHITE);
                 }
                 int index = ids.indexOf(view.getId());
-                if (index > 0) {
+                if (index >= 0) {
                     ((TextView)contentView.findViewById(ids.get(index))).setTextColor(Color.RED);
                     CATEGORY = labels.get(index);
                 }
@@ -105,6 +116,11 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
 
         for(Integer id: ids) {
             contentView.findViewById(id).setOnClickListener(onClickListener);
+        }
+
+        int selectedIndex = labels.indexOf(getArguments().getString(ARG_CATEGORY_SELECTED));
+        if (selectedIndex >= 0) {
+            onClickListener.onClick(contentView.findViewById(ids.get(selectedIndex)));
         }
     }
 }
