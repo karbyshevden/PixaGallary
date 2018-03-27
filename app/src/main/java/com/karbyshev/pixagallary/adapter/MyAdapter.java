@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.karbyshev.pixagallary.R;
 import com.karbyshev.pixagallary.model.Hit;
+import com.karbyshev.pixagallary.view.IMainView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,7 +28,12 @@ import static com.karbyshev.pixagallary.view.MainActivity.SPAN_COUNT;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
-    private List<Hit> hits = new ArrayList<>();
+    private ArrayList<Hit> hits = new ArrayList<>();
+    private IMainView mListiner;
+
+    public void setOnItemClickListiner(IMainView mListiner){
+        this.mListiner = mListiner;
+    }
 
     public MyAdapter(Context context) {
         this.context = context;
@@ -85,6 +91,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mCreatorTextView = (TextView) itemView.findViewById(R.id.my_creatorName);
             mLikesTextView = (TextView) itemView.findViewById(R.id.my_likes);
             mDownloadsTextView = (TextView) itemView.findViewById(R.id.my_downloads);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListiner != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+
+                            System.out.println("CLICKED!!!!");
+                            mListiner.OnItemClick(position, hits);
+                        }
+                    }
+                }
+            });
         }
     }
 

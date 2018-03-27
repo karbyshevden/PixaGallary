@@ -1,5 +1,7 @@
 package com.karbyshev.pixagallary.view;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -27,10 +29,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements AAH_FabulousFragment.Callbacks{
+public class MainActivity extends AppCompatActivity implements AAH_FabulousFragment.Callbacks, IMainView{
     public static final String APP_PREFERENCES_POSITION_LIST = "positionList";
     public static final String APP_PREFERENCES_POSITION_ORIENTATION = "positionOrientation";
     public static final String APP_PREFERENCES_POSITION_COLOR = "positionColor";
+    public static final String FULLSCREEN_IMG_URL = "fullScreen";
+    public static final String FULLSCREEN_LIKES = "likes";
+    public static final String FULLSCREEN_DOWNLOADS = "downloads";
+    public static final String FULLSCREEN_CREATOR_NAME = "creator";
     public static int SPAN_COUNT = 1;
     public static String CATEGORY = "all";
     public static String ORIENTATION = "all";
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
         mGridLayoutManager = new GridLayoutManager(this, SPAN_COUNT);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         myAdapter = new MyAdapter(MainActivity.this);
+        myAdapter.setOnItemClickListiner(MainActivity.this);
         mRecyclerView.setAdapter(myAdapter);
 
         AppController.getApi().data(map).enqueue(new Callback<PostModel>() {
@@ -99,5 +106,27 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
                 Toast.makeText(MainActivity.this, "An error occurred during networking", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void OnItemClick(int position, ArrayList<Hit> list) {
+        Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
+        Hit hit = list.get(position);
+
+        intent.putExtra(FULLSCREEN_IMG_URL, hit.getLargeImageURL());
+        intent.putExtra(FULLSCREEN_LIKES, hit.getLikes().toString());
+        intent.putExtra(FULLSCREEN_DOWNLOADS, hit.getDownloads().toString());
+        intent.putExtra(FULLSCREEN_CREATOR_NAME, hit.getUser());
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

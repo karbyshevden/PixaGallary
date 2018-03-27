@@ -27,7 +27,7 @@ import static com.karbyshev.pixagallary.view.MainActivity.SPAN_COUNT;
 
 public class MySampleFabFragment extends AAH_FabulousFragment {
     private ToggleSwitch mListToggle, mLandscapeToggle;
-    private SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
 
     private List<Integer> ids = Arrays.asList(
             R.id.my_category_fashion,

@@ -8,4 +8,6 @@
     <color name="myBackground">#161616</color>
     <color name="buttonBackground">#de000000</color>
 
+    <color name="black_overlay">#66000000</color>
+
 </resources>
