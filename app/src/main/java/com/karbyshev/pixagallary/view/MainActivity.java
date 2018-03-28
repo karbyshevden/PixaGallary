@@ -1,5 +1,6 @@
 package com.karbyshev.pixagallary.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.karbyshev.pixagallary.adapter.MyAdapter;
 import com.karbyshev.pixagallary.model.Hit;
 import com.karbyshev.pixagallary.model.PostModel;
 import com.karbyshev.pixagallary.util.AppController;
+import com.karbyshev.pixagallary.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +32,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements AAH_FabulousFragment.Callbacks, IMainView{
+    public static final String KEY_SELECTED_ITEM = "MainActivity.KEY_SELECTED_ITEM";
+
     public static final String APP_PREFERENCES_POSITION_LIST = "positionList";
     public static final String APP_PREFERENCES_POSITION_ORIENTATION = "positionOrientation";
     public static final String APP_PREFERENCES_POSITION_COLOR = "positionColor";
+
     public static final String FULLSCREEN_IMG_URL = "fullScreen";
     public static final String FULLSCREEN_LIKES = "likes";
     public static final String FULLSCREEN_DOWNLOADS = "downloads";
     public static final String FULLSCREEN_CREATOR_NAME = "creator";
+
     public static int SPAN_COUNT = 1;
     public static String CATEGORY = "all";
     public static String ORIENTATION = "all";
@@ -58,11 +64,13 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MySampleFabFragment dialogFrag = MySampleFabFragment.newInstance();
+                MySampleFabFragment dialogFrag = MySampleFabFragment.newInstance(CATEGORY);
                 dialogFrag.setParentFab(fab);
                 dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag());
             }
         });
+
+        CATEGORY = getSharedPreferences().getString(KEY_SELECTED_ITEM, "all");
 
         map = new HashMap<>();
         map.put("key", "8334968-4779a336d920b0785293ef347");
@@ -120,13 +128,7 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
         startActivity(intent);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private SharedPreferences getSharedPreferences(){
+        return getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
     }
 }

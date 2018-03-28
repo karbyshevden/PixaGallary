@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,6 +27,8 @@ import static com.karbyshev.pixagallary.view.MainActivity.ORIENTATION;
 import static com.karbyshev.pixagallary.view.MainActivity.SPAN_COUNT;
 
 public class MySampleFabFragment extends AAH_FabulousFragment {
+    private static final String ARG_CATEGORY_SELECTED = "MySampleFabFragment.ARG_CATEGORY_SELECTED";
+
     private ToggleSwitch mListToggle, mLandscapeToggle;
     public SharedPreferences sharedPreferences;
 
@@ -75,8 +78,12 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
            "music"
     );
 
-    public static MySampleFabFragment newInstance() {
-        return new MySampleFabFragment();
+    public static MySampleFabFragment newInstance(String selectedCategory) {
+        Bundle args = new Bundle();
+        args.putString(ARG_CATEGORY_SELECTED, selectedCategory);
+        MySampleFabFragment fragment = new MySampleFabFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
@@ -96,9 +103,6 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
         mListToggle = (ToggleSwitch) contentView.findViewById(R.id.my_list_toggle);
-        mLandscapeToggle = (ToggleSwitch)contentView.findViewById(R.id.my_lanscape_toggle);
-
-
         mListToggle.setCheckedTogglePosition(sharedPreferences.getInt(APP_PREFERENCES_POSITION_LIST, 0));
         mListToggle.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
@@ -116,6 +120,7 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
             }
         });
 
+        mLandscapeToggle = (ToggleSwitch)contentView.findViewById(R.id.my_lanscape_toggle);
         mLandscapeToggle.setCheckedTogglePosition(sharedPreferences.getInt(APP_PREFERENCES_POSITION_ORIENTATION, 1));
         mLandscapeToggle.setOnToggleSwitchChangeListener(new ToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
@@ -166,6 +171,11 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
 
         for(Integer id: ids) {
             contentView.findViewById(id).setOnClickListener(onClickListener);
+        }
+
+        int selectedIndex = labels.indexOf(getArguments().getString(ARG_CATEGORY_SELECTED));
+        if (selectedIndex >=0){
+            onClickListener.onClick(contentView.findViewById(ids.get(selectedIndex)));
         }
     }
 }
