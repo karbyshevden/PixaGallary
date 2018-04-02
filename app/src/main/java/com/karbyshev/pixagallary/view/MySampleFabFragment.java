@@ -19,7 +19,6 @@ import java.util.List;
 import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 
-import static com.karbyshev.pixagallary.view.MainActivity.APP_PREFERENCES_POSITION_COLOR;
 import static com.karbyshev.pixagallary.view.MainActivity.APP_PREFERENCES_POSITION_LIST;
 import static com.karbyshev.pixagallary.view.MainActivity.APP_PREFERENCES_POSITION_ORIENTATION;
 import static com.karbyshev.pixagallary.view.MainActivity.CATEGORY;
@@ -30,7 +29,7 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
     private static final String ARG_CATEGORY_SELECTED = "MySampleFabFragment.ARG_CATEGORY_SELECTED";
 
     private ToggleSwitch mListToggle, mLandscapeToggle;
-    public SharedPreferences sharedPreferences;
+    public SharedPreferences mSharedPreferences;
 
     private List<Integer> ids = Arrays.asList(
             R.id.my_category_fashion,
@@ -99,11 +98,11 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
             }
         });
 
-        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        mSharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mSharedPreferences.edit();
 
         mListToggle = (ToggleSwitch) contentView.findViewById(R.id.my_list_toggle);
-        mListToggle.setCheckedTogglePosition(sharedPreferences.getInt(APP_PREFERENCES_POSITION_LIST, 0));
+        mListToggle.setCheckedTogglePosition(mSharedPreferences.getInt(APP_PREFERENCES_POSITION_LIST, 0));
         mListToggle.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
@@ -121,7 +120,7 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
         });
 
         mLandscapeToggle = (ToggleSwitch)contentView.findViewById(R.id.my_lanscape_toggle);
-        mLandscapeToggle.setCheckedTogglePosition(sharedPreferences.getInt(APP_PREFERENCES_POSITION_ORIENTATION, 1));
+        mLandscapeToggle.setCheckedTogglePosition(mSharedPreferences.getInt(APP_PREFERENCES_POSITION_ORIENTATION, 1));
         mLandscapeToggle.setOnToggleSwitchChangeListener(new ToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
