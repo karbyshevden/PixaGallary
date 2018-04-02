@@ -1,4 +1,4 @@
-package com.karbyshev.pixagallary.util;
+package com.karbyshev.pixagallary.utils;
 
 public class Constants {
 

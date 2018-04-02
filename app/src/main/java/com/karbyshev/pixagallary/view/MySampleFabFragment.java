@@ -27,9 +27,10 @@ import static com.karbyshev.pixagallary.view.MainActivity.SPAN_COUNT;
 
 public class MySampleFabFragment extends AAH_FabulousFragment {
     private static final String ARG_CATEGORY_SELECTED = "MySampleFabFragment.ARG_CATEGORY_SELECTED";
+    private static final String ARG_ORIENTATION_SELECTED = "MySampleFabFragment.ARG_ORIENTATION_SELECTED";
+    private static final String ARG_SPAN_COUNT_SELECTED = "MySampleFabFragment.ARG_SPAN_COUNT_SELECTED";
 
     private ToggleSwitch mListToggle, mLandscapeToggle;
-    public SharedPreferences mSharedPreferences;
 
     private List<Integer> ids = Arrays.asList(
             R.id.my_category_fashion,
@@ -77,9 +78,11 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
            "music"
     );
 
-    public static MySampleFabFragment newInstance(String selectedCategory) {
+    public static MySampleFabFragment newInstance(String selectedCategory, String selectedOrientation, int selectSpanCount) {
         Bundle args = new Bundle();
         args.putString(ARG_CATEGORY_SELECTED, selectedCategory);
+        args.putString(ARG_ORIENTATION_SELECTED, selectedOrientation);
+        args.putInt(ARG_SPAN_COUNT_SELECTED, selectSpanCount);
         MySampleFabFragment fragment = new MySampleFabFragment();
         fragment.setArguments(args);
         return fragment;
@@ -98,29 +101,48 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
             }
         });
 
-        mSharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = mSharedPreferences.edit();
+        contentView.findViewById(R.id.my_reset_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SPAN_COUNT = 1;
+                ORIENTATION = "all";
+                CATEGORY = "all";
+                closeFilter("closed");
+            }
+        });
+
+        int defSpanValue = 0;
+        if (getArguments().getInt(ARG_SPAN_COUNT_SELECTED, 0) == 1){
+            defSpanValue = 0;
+        } else if (getArguments().getInt(ARG_SPAN_COUNT_SELECTED, 0) == 2){
+            defSpanValue = 1;
+        }
 
         mListToggle = (ToggleSwitch) contentView.findViewById(R.id.my_list_toggle);
-        mListToggle.setCheckedTogglePosition(mSharedPreferences.getInt(APP_PREFERENCES_POSITION_LIST, 0));
+        mListToggle.setCheckedTogglePosition(defSpanValue);
         mListToggle.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
                 position = mListToggle.getCheckedTogglePosition();
                 if (position == 0){
                     SPAN_COUNT = 1;
-                    editor.putInt(APP_PREFERENCES_POSITION_LIST, position);
-                    editor.commit();
                 } else if (position == 1){
                     SPAN_COUNT = 2;
-                    editor.putInt(APP_PREFERENCES_POSITION_LIST, position);
-                    editor.commit();
                 }
             }
         });
 
+        int defOrientationValue = 1;
+        if (getArguments().getString(ARG_ORIENTATION_SELECTED).equals("vertical")){
+            defOrientationValue = 0;
+        } else if (getArguments().getString(ARG_ORIENTATION_SELECTED).equals("all")){
+            defOrientationValue = 1;
+        } else if (getArguments().getString(ARG_ORIENTATION_SELECTED).equals("horizontal")){
+            defOrientationValue = 2;
+        }
+
         mLandscapeToggle = (ToggleSwitch)contentView.findViewById(R.id.my_lanscape_toggle);
-        mLandscapeToggle.setCheckedTogglePosition(mSharedPreferences.getInt(APP_PREFERENCES_POSITION_ORIENTATION, 1));
+        mLandscapeToggle.setCheckedTogglePosition(defOrientationValue);
         mLandscapeToggle.setOnToggleSwitchChangeListener(new ToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
@@ -128,16 +150,10 @@ public class MySampleFabFragment extends AAH_FabulousFragment {
 
                 if (position == 0){
                     ORIENTATION = "vertical";
-                    editor.putInt(APP_PREFERENCES_POSITION_ORIENTATION, position);
-                    editor.commit();
                 } else if (position == 1){
                     ORIENTATION = "all";
-                    editor.putInt(APP_PREFERENCES_POSITION_ORIENTATION, position);
-                    editor.commit();
                 } else if (position == 2){
                     ORIENTATION = "horizontal";
-                    editor.putInt(APP_PREFERENCES_POSITION_ORIENTATION, position);
-                    editor.commit();
                 }
             }
         });

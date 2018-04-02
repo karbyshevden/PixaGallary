@@ -18,41 +18,41 @@
 
         <LinearLayout
             android:id="@+id/toogle_linearLayout"
-            android:layout_margin="8dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
 
             <belka.us.androidtoggleswitch.widgets.ToggleSwitch
                 android:id="@+id/my_list_toggle"
-                android:layout_marginBottom="8dp"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
                 app:textToggleLeft="List"
                 app:textToggleRight="Grid"
-                app:toggleWidth="100dp"/>
+                app:toggleWidth="100dp" />
 
             <belka.us.androidtoggleswitch.widgets.ToggleSwitch
                 android:id="@+id/my_lanscape_toggle"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 app:textToggleCenter="All"
                 app:textToggleLeft="Portrait"
                 app:textToggleRight="Landscape"
-                app:toggleWidth="100dp"/>
+                app:toggleWidth="100dp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/buttons_linearLayput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/toogle_linearLayout"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            android:layout_below="@id/toogle_linearLayout">
+            android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -376,15 +376,37 @@
             android:layout_height="56dp"
             android:layout_alignParentBottom="true"
             android:background="@color/colorAccent"
+            android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:weightSum="2"
-            android:gravity="center_horizontal">
+            android:layout_marginBottom="4dp">
 
-            <ImageButton
-                android:id="@+id/my_ok_button"
-                android:layout_width="56dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/ic_check_white_24dp" />
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <ImageButton
+                    android:id="@+id/my_reset_button"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_cancel_white_24dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <ImageButton
+                    android:id="@+id/my_ok_button"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_check_white_24dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -8,11 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
@@ -20,8 +16,8 @@ import com.karbyshev.pixagallary.R;
 import com.karbyshev.pixagallary.adapter.MyAdapter;
 import com.karbyshev.pixagallary.model.Hit;
 import com.karbyshev.pixagallary.model.PostModel;
-import com.karbyshev.pixagallary.util.AppController;
-import com.karbyshev.pixagallary.util.Constants;
+import com.karbyshev.pixagallary.utils.AppController;
+import com.karbyshev.pixagallary.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,10 +29,11 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements AAH_FabulousFragment.Callbacks, IMainView{
     public static final String KEY_SELECTED_ITEM = "MainActivity.KEY_SELECTED_ITEM";
+    public static final String KEY_ORIENTATION_ITEM = "MainActivity.KEY_ORIENTATION_ITEM";
+    public static final String KEY_SPAN_COUNT_ITEM = "MainActivity.KEY_SPAN_COUNT_ITEM";
 
     public static final String APP_PREFERENCES_POSITION_LIST = "positionList";
     public static final String APP_PREFERENCES_POSITION_ORIENTATION = "positionOrientation";
-    public static final String APP_PREFERENCES_POSITION_COLOR = "positionColor";
 
     public static final String FULLSCREEN_IMG_URL = "fullScreen";
     public static final String FULLSCREEN_LIKES = "likes";
@@ -64,13 +61,15 @@ public class MainActivity extends AppCompatActivity implements AAH_FabulousFragm
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MySampleFabFragment dialogFrag = MySampleFabFragment.newInstance(CATEGORY);
+                MySampleFabFragment dialogFrag = MySampleFabFragment.newInstance(CATEGORY, ORIENTATION, SPAN_COUNT);
                 dialogFrag.setParentFab(fab);
                 dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag());
             }
         });
 
         CATEGORY = getSharedPreferences().getString(KEY_SELECTED_ITEM, "all");
+        ORIENTATION = getSharedPreferences().getString(KEY_ORIENTATION_ITEM, "all");
+        SPAN_COUNT = getSharedPreferences().getInt(KEY_SPAN_COUNT_ITEM, 1);
 
         map = new HashMap<>();
         map.put("key", "8334968-4779a336d920b0785293ef347");
